@@ -5,7 +5,7 @@ from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
 from core.database import get_db
-from core.models import UserModel
+from core.models import Account
 from core.auth import generate_token
 from core.schemas import LoginSchema
 
@@ -22,7 +22,7 @@ def login(
     request: LoginSchema,
     db: Session = Depends(get_db),
 ):
-    user = db.query(UserModel).filter(UserModel.email == request.email).first()
+    user = db.query(Account).filter(Account.email == request.email).first()
 
     if not user:
         raise HTTPException(

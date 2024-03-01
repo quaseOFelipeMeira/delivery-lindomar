@@ -2,25 +2,23 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class UserSchema(BaseModel):
+class AccountSchema(BaseModel):
     name: str
     email: str
     password: str
-    role: str
 
-    class Config:
-        # orm_mode = True
-        from_attributes = True
+    complement: str
+    street: str
+    house_number: str
+    neighborhood: str
+    city: str
+    state: str
+    CEP: str
+    # id: Optional[int] = None
 
 
-class UserResponseSchema(BaseModel):
-    name: str
-    email: str
-    role: str
-
-    class Config:
-        # orm_mode = True
-        from_attributes = True
+class AccountResponseSchema(AccountSchema):
+    id: int
 
 
 class TokenData(BaseModel):

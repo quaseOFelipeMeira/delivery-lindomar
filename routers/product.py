@@ -5,7 +5,7 @@ from typing import List
 from sqlalchemy.orm import Session
 
 from core.schemas import ProductSchema
-from core.models import ProductModel
+from core.models import Product
 from core.database import get_db
 
 
@@ -23,7 +23,7 @@ router = APIRouter(
 def get_products(
     db: Session = Depends(get_db),
 ):
-    products = db.query(ProductModel).all()
+    products = db.query(Product).all()
     if products:
         return products
     else:
@@ -39,7 +39,7 @@ def get_product(
     id: int,
     db: Session = Depends(get_db),
 ):
-    product = db.query(ProductModel).filter(ProductModel.id == id).first()
+    product = db.query(Product).filter(Product.id == id).first()
     if product:
         return product
     else:
@@ -58,7 +58,7 @@ def create_product(
     db: Session = Depends(get_db),
 ):
     request.price = round(request.price, 2)
-    new_product = ProductModel(
+    new_product = Product(
         name=request.name,
         description=request.description,
         price=request.price,
@@ -78,7 +78,7 @@ def create_product(
     request: ProductSchema,
     db: Session = Depends(get_db),
 ):
-    product = db.query(ProductModel).filter(ProductModel.id == id)
+    product = db.query(Product).filter(Product.id == id)
 
     if not product:
         raise HTTPException(
@@ -98,7 +98,7 @@ def delete_product(
     id: int,
     db: Session = Depends(get_db),
 ):
-    product = db.query(ProductModel).filter(ProductModel.id == id).first()
+    product = db.query(Product).filter(Product.id == id).first()
     if not product:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="no product with this iD"

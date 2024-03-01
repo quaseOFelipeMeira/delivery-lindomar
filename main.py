@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from core.database import engine
 from core.models import Base
-from routers import user, login, product
+from routers import account, login, product
 
 # from routers import product, sale, seller, login
 
@@ -21,10 +21,10 @@ app = FastAPI(
     redoc_url=None,
 )
 
-app.include_router(user.router)
+app.include_router(account.router)
 app.include_router(login.router)
 app.include_router(product.router)
 
 Base.metadata.create_all(engine)
 
-# uvicorn main:app --reload --port 8080
+# uvicorn main:app --reload --port 8000

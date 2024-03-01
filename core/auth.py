@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from jose import jwt, JWTError
 
 from core.database import get_db
-from core.schemas import TokenData, UserSchema
-from core.models import UserModel
+from core.schemas import TokenData, AccountSchema
+from core.models import Account
 
 
 SECRET_KEY = "uvSSJExH1P2IdF3sL4xId3O7jB_vFM9sIHxCDe_1uVw"
@@ -37,7 +37,7 @@ def get_current_user(
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user = db.query(UserModel).filter(UserModel.id == payload.get("id")).first()
+        user = db.query(Account).filter(Account.id == payload.get("id")).first()
         return user
     except JWTError:
         raise credentials_exception
