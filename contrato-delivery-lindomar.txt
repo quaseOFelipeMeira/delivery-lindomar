@@ -1,0 +1,50 @@
+• Elaboração dos protótipos de baixa e alta fidelidade visando as melhores práticas em UI/UX.
+• O acesso ao app deve ser permitido mediante autenticação com JWT
+• Realização da integração de dispositivos móveis aos serviços web.
+• O app fornecerá uma listagem de produtos e pedidos realizados
+• O app possibilitará a alteração do status do pedido pelo transportador.
+• O app apresentará um resumo mensal dos pedidos atribuídos ao transportador.
+
+
+To Do
+
+Prototipo Figma
+Desenvolvimento com base no protótipo
+
+
+        Usuarios
+    Funções
+Login 
+Registro
+List todos produtos da loja
+Selecionar produto - mais detailhes
+Adicionar produto - add ao carrinho
+Carrinho
+Fazer Pedido - finalizar a compra dos itens do carrinho
+Acompanhar Pedido - Ver status de acompanhamento (entregue, à caminho,....) * bolas de status * 
+Ver Histórico de seus pedidos
+
+    Dados
+email
+senha
+nome
+sobrenome
+endereço
+
+
+        Transportadora
+Login
+Registro
+Histórico de entregas da transportadora - em andamento e finalizados
+Selecionar um pedido em andamento, para alterar o status (entregue, à caminho, entregue)
+    - ver a rota de entrega
+        - se pá em tempo real
+
+
+        Produtos
+    Funções	
+
+    Dados
+nome
+preço
+descrição

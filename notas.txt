@@ -1,0 +1,23 @@
+Endpoints 
+
+	cliente
+login jwt
+register
+get all prod
+get historic
+get single prod
+get single buy
+post finish buy
+	qnts
+	prod
+	transportadora 
+	endereço cliente
+	endereço transportadora	
+
+	transportadora
+login jwt
+register
+get all entregas disp
+get historic
+get single entrega
+put/patch single entrega
