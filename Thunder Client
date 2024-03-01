@@ -1,0 +1,134 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "delivery lindomar",
+    "dateExported": "2024-03-01T19:25:47.813Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "e97ce775-dcaf-486d-af1d-f9a0375026ec",
+            "name": "Order",
+            "containerId": "",
+            "created": "2024-03-01T19:18:23.835Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "eb25e2a7-3542-429c-8a41-b53502a28b84",
+            "name": "Product",
+            "containerId": "",
+            "created": "2024-03-01T19:19:08.487Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "4327c995-5de1-4beb-94ea-5b49ad3841df",
+            "name": "Account",
+            "containerId": "",
+            "created": "2024-03-01T19:20:39.867Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "4f12a4fa-a7e6-4f37-9eca-ea566cfedeb4",
+            "colId": "91c4f190-0d44-412f-a3c6-0c8e6ed23fb3",
+            "containerId": "e97ce775-dcaf-486d-af1d-f9a0375026ec",
+            "name": "POST new order",
+            "url": "http://127.0.0.1:8000/order",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-03-01T19:18:10.798Z",
+            "modified": "2024-03-01T19:18:10.798Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"items_id\": [\r\n    1,2,3,4\r\n  ]\r\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDkzMjI3NzZ9.npPeI1SWLUifTbOc5mvAOWiUxQAMJgPhyMCl1mM-5js"
+            },
+            "tests": []
+        },
+        {
+            "_id": "8280ac58-557a-47b8-9775-574bcbea344c",
+            "colId": "91c4f190-0d44-412f-a3c6-0c8e6ed23fb3",
+            "containerId": "eb25e2a7-3542-429c-8a41-b53502a28b84",
+            "name": "POST new product",
+            "url": "http://127.0.0.1:8000/product",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-03-01T19:18:49.862Z",
+            "modified": "2024-03-01T19:18:49.862Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"name\": \"prod3\",\r\n  \"description\": \"dsadsaddsadsadd\",\r\n  \"price\": 30\r\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDkzMjI3NzZ9.npPeI1SWLUifTbOc5mvAOWiUxQAMJgPhyMCl1mM-5js"
+            },
+            "tests": []
+        },
+        {
+            "_id": "16d197e2-c1bb-428d-8a8b-f78acf717485",
+            "colId": "91c4f190-0d44-412f-a3c6-0c8e6ed23fb3",
+            "containerId": "4327c995-5de1-4beb-94ea-5b49ad3841df",
+            "name": "POST Login",
+            "url": "http://127.0.0.1:8000/login",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-03-01T19:20:47.096Z",
+            "modified": "2024-03-01T19:24:37.848Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"email\": \"ricka@brito.com\",\r\n  \"password\": \"123456\"\r\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "9d8d8cda-3737-4124-a872-341eea5845cc",
+            "colId": "91c4f190-0d44-412f-a3c6-0c8e6ed23fb3",
+            "containerId": "4327c995-5de1-4beb-94ea-5b49ad3841df",
+            "name": "POST Create User",
+            "url": "http://127.0.0.1:8000/account/user",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2024-03-01T19:22:03.567Z",
+            "modified": "2024-03-01T19:24:24.116Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"name\": \"Henrique\",\r\n  \"email\": \"ricka@brito.com\",\r\n  \"password\": \"123456\",\r\n  \"complement\": \"string\",\r\n  \"street\": \"string\",\r\n  \"house_number\": \"string\",\r\n  \"neighborhood\": \"string\",\r\n  \"city\": \"string\",\r\n  \"state\": \"string\",\r\n  \"CEP\": \"string\"\r\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "22ada302-8d27-492e-abff-01e599086096",
+            "colId": "91c4f190-0d44-412f-a3c6-0c8e6ed23fb3",
+            "containerId": "4327c995-5de1-4beb-94ea-5b49ad3841df",
+            "name": "POST Create Transport",
+            "url": "http://127.0.0.1:8000/account/transport",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2024-03-01T19:22:20.814Z",
+            "modified": "2024-03-01T19:23:13.463Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"email\",\n  \"password\": \"string\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

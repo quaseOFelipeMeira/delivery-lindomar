@@ -36,14 +36,13 @@ class OrderItem(Base):
     __tablename__ = "orderItem"
     id = Column(Integer, primary_key=True, index=True)
     product_id = Column(ForeignKey("product.id"))
-    order_id = Column(
-        Integer
-    )  # n sei se é melhor deixar como integer para criar os itens, dps a compra final, ou deixar como foreign key da outra tabela
+    order_id = Column(Integer)
 
 
 class Order(Base):
     __tablename__ = "order"
     id = Column(Integer, primary_key=True, index=True)
-    account_id = Column(ForeignKey("account.id"))
-    order_item_id = Column(ForeignKey("orderItem.id"))
+    user_id = Column(ForeignKey("account.id"))
+    transport_id = Column(ForeignKey("account.id"))
+    # order_item_id = Column(ForeignKey("orderItem.id"))
     total_price = Column(Double)

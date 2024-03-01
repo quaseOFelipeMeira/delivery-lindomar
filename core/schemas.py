@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 
 class AccountSchema(BaseModel):
@@ -35,3 +35,8 @@ class ProductSchema(BaseModel):
     name: str
     description: str
     price: float
+
+
+class OrderSchema(BaseModel):
+    items_id: List[int]
+    transport_id: int
