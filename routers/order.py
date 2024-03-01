@@ -8,22 +8,14 @@ from core.schemas import ProductSchema
 from core.models import ProductModel
 from core.database import get_db
 
-router = APIRouter(
-    tags=['Order'],
-    prefix="/order"
-)
+router = APIRouter(tags=["Order"], prefix="/order")
 
 
 @router.post("")
-def login(
-    request:  List[ProductSchema],
-    db: Session = Depends(get_db),
-):
+def login(request: List[ProductSchema], db: Session = Depends(get_db)):
     total_price = 0
     for item in request:
         total_price += item.price
-    
+
     print("total")
     print(total_price)
-    
-    

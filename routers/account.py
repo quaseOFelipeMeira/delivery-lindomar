@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from core.database import get_db
 from core.schemas import AccountSchema, AccountResponseSchema
 from core.models import Account, Address
-from core.auth import get_current_user
+from core.authentication import get_current_user
 
 router = APIRouter(
     tags=["Account"],

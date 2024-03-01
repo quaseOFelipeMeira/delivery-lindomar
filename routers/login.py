@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from core.database import get_db
 from core.models import Account
-from core.auth import generate_token
+from core.authentication import generate_token
 from core.schemas import LoginSchema
 
 router = APIRouter(
@@ -38,7 +38,7 @@ def login(
     access_token = generate_token(
         data={
             "id": user.id,
-            "sub": user.name,
+            "role": user.role,
         }
     )
     return {"access_token": access_token, "token_type": "bearer", "role": user.role}

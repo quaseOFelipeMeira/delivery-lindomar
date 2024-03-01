@@ -11,7 +11,7 @@ from core.models import Account
 
 SECRET_KEY = "uvSSJExH1P2IdF3sL4xId3O7jB_vFM9sIHxCDe_1uVw"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 20
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -21,7 +21,11 @@ def generate_token(
 ):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
+    to_encode.update(
+        {
+            "exp": expire,
+        }
+    )
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
