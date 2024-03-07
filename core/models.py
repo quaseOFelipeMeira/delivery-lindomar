@@ -44,5 +44,13 @@ class Order(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(ForeignKey("account.id"))
     transport_id = Column(ForeignKey("account.id"))
-    # order_item_id = Column(ForeignKey("orderItem.id"))
     total_price = Column(Double)
+
+    # Status ===================
+    status = Column(Integer)
+    #-1 - order refused
+    # 0 - waiting for approval
+    # 1 - order approved
+    # 2 - order payed
+    # 3 - order in the way
+    # 4 - order finished

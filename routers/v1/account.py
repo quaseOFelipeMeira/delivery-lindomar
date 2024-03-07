@@ -63,8 +63,12 @@ def create_transport(request: AccountSchema, db: Session = Depends(get_db)):
     return request
 
 
-@router.get("", response_model=AccountResponseSchema)
+@router.get(
+    "",
+    response_model=AccountResponseSchema,
+)
 def get_me(
     user: AccountSchema = Depends(get_current_user),
 ):
+    print(user)
     return user

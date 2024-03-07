@@ -17,8 +17,10 @@ class AccountSchema(BaseModel):
     # id: Optional[int] = None
 
 
-class AccountResponseSchema(AccountSchema):
+class AccountResponseSchema(BaseModel):
     id: int
+    name: str
+    email: str
 
 
 class TokenData(BaseModel):
@@ -40,3 +42,12 @@ class ProductSchema(BaseModel):
 class OrderSchema(BaseModel):
     items_id: List[int]
     transport_id: int
+
+
+class OrderResponseSchema(BaseModel):
+    id: int
+    user: str
+    transport: str
+    total_price: float
+    status: int 
+    status_msg: str

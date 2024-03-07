@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from core.database import engine
 from core.models import Base
-from routers import account, login, product, order
+from routers import v1
 
 # from routers import product, sale, seller, login
 
@@ -21,10 +21,7 @@ app = FastAPI(
     redoc_url=None,
 )
 
-app.include_router(account.router)
-app.include_router(login.router)
-app.include_router(product.router)
-app.include_router(order.router)
+app.include_router(v1.router)
 
 Base.metadata.create_all(engine)
 
@@ -33,3 +30,7 @@ Base.metadata.create_all(engine)
 # To do
 # add column trnasport in order
 # refactor folders to include __init__.py (versioning)
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
