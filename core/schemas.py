@@ -40,14 +40,18 @@ class ProductSchema(BaseModel):
 
 
 class OrderSchema(BaseModel):
-    items_id: List[int]
+    items: List[int]
     transport_id: int
 
 
 class OrderResponseSchema(BaseModel):
+    total_price: float
     id: int
+    status: int
     user: str
     transport: str
-    total_price: float
-    status: int 
     status_msg: str
+
+
+class OrderResponseSchema2(OrderResponseSchema):
+    products: List[ProductSchema]

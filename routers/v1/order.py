@@ -4,7 +4,7 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from core.schemas import OrderSchema, OrderResponseSchema, AccountSchema
+from core.schemas import OrderSchema, OrderResponseSchema, AccountSchema, OrderResponseSchema2
 from core.models import Order, OrderItem, Product, Account
 from core.database import get_db
 from core.authentication import get_current_user
@@ -32,13 +32,86 @@ def get_status_message(status: int):
             return "order delivered"
 
 
+@router.get(
+    "",
+    response_model=List[OrderResponseSchema2],
+)
+def get_orders(
+    db: Session = Depends(get_db),
+    user: AccountSchema = Depends(get_current_user),
+):
+    if user:
+        if user.role == "TRANSPORT":
+            orders = (
+                db.query(Order)
+                .filter(Order.transport_id == user.id)
+                .order_by(Order.status)
+                .all()
+            )
+
+        if user.role == "USER":
+            orders = (
+                db.query(Order)
+                .filter(Order.user_id == user.id)
+                .order_by(Order.status)
+                .all()
+            )
+        for order in orders:
+            items = db.query(OrderItem).filter(OrderItem.order_id == order.id).all()
+            products = []
+            for item in items:
+                product = (
+                    db.query(Product).filter(Product.id == item.product_id).first()
+                )
+                products.append(product)
+            order.products = products
+
+            user = db.query(Account).filter(Account.id == order.user_id).first()
+            transport = (
+                db.query(Account).filter(Account.id == order.transport_id).first()
+            )
+
+            order.user = user.name
+            order.transport = transport.name
+            order.status_msg = get_status_message(order.status)
+
+        if orders:
+            return orders
+        else:
+            return []
+
+
+@router.get("/{id}", response_model=OrderResponseSchema)
+def get_order(
+    id: int,
+    db: Session = Depends(get_db),
+    user: AccountSchema = Depends(get_current_user),
+):
+    if user:
+        order = db.query(Order).filter(Order.id == id).first()
+        if order:
+            user = db.query(Account).filter(Account.id == order.user_id).first()
+            transport = (
+                db.query(Account).filter(Account.id == order.transport_id).first()
+            )
+
+            order.user = user.name
+            order.transport = transport.name
+            order.status_msg = get_status_message(order.status)
+            return order
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
+            )
+
+
 @router.post("")
 def new_order(
     request: OrderSchema,
     db: Session = Depends(get_db),
     user: AccountSchema = Depends(get_current_user),
 ):
-    if is_user:
+    if is_user(user):
         account = db.query(Account).filter(Account.id == request.transport_id).first()
         # Verifying if this ID exists
         if not account:
@@ -93,52 +166,6 @@ def new_order(
         new_order.total_price = total_price
         db.commit()
         return request
-
-
-@router.get("/{id}", response_model=OrderResponseSchema)
-def get_order(
-    id: int,
-    db: Session = Depends(get_db),
-    user: AccountSchema = Depends(get_current_user),
-):
-    if is_user(user):
-        order = db.query(Order).filter(Order.id == id).first()
-        if order:
-            user = db.query(Account).filter(Account.id == order.user_id).first()
-            transport = (
-                db.query(Account).filter(Account.id == order.transport_id).first()
-            )
-
-            order.user = user.name
-            order.transport = transport.name
-            order.status_msg = get_status_message(order.status)
-            return order
-        else:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, detail="Product not found"
-            )
-
-
-# =================================
-@router.get(
-    "",
-    # response_model=List[OrderSchema],
-)
-def get_orders(
-    db: Session = Depends(get_db),
-    user: AccountSchema = Depends(get_current_user),
-):
-    if is_transport(user):
-        orders = (
-            db.query(Order)
-            .filter(Order.transport_id == user.id)
-            .order_by(Order.status)
-            .all()
-        )
-        if orders:
-            return orders
-        else:
-            return []
 
 
 @router.patch(
