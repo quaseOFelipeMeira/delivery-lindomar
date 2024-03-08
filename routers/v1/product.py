@@ -22,6 +22,15 @@ def get_products(
     db: Session = Depends(get_db),
     user: AccountSchema = Depends(get_current_user),
 ):
+    """Method to get all the products
+
+    Args:
+        db (Session, optional): database session
+        user (AccountSchema, optional): jwt access token on the header
+
+    Returns:
+        List[ProductSchema]: all products
+    """
     if is_user(user):
         products = db.query(Product).all()
         if products:
@@ -36,6 +45,19 @@ def get_product(
     db: Session = Depends(get_db),
     user: AccountSchema = Depends(get_current_user),
 ):
+    """Method to get a single product
+
+    Args:
+        id (int): id of the product
+        db (Session, optional): database session
+        user (AccountSchema, optional): jwt access token on the header
+
+    Raises:
+        HTTPException: Product not founded
+
+    Returns:
+        ProductSchema: data from the specific product
+    """
     if is_user(user):
         product = db.query(Product).filter(Product.id == id).first()
         if product:
@@ -52,6 +74,16 @@ def create_product(
     db: Session = Depends(get_db),
     user: AccountSchema = Depends(get_current_user),
 ):
+    """Method to create a new product
+
+    Args:
+        id (int): id of the product
+        db (Session, optional): database session
+        user (AccountSchema, optional): jwt access token on the header
+
+    Returns:
+        request: all data gave on param
+    """
     if is_user(user):
         request.price = round(request.price, 2)
         new_product = Product(
@@ -71,6 +103,20 @@ def update_product(
     db: Session = Depends(get_db),
     user: AccountSchema = Depends(get_current_user),
 ):
+    """Method to update a product
+
+    Args:
+        id (int): product id
+        request (ProductSchema): data to overwrite the current product
+        db (Session, optional): database session
+        user (AccountSchema, optional): jwt access token on the header
+
+    Raises:
+        HTTPException: Product not found
+
+    Returns:
+        request: data gave on param
+    """
     if is_user(user):
         product = db.query(Product).filter(Product.id == id)
 
@@ -90,6 +136,19 @@ def delete_product(
     db: Session = Depends(get_db),
     user: AccountSchema = Depends(get_current_user),
 ):
+    """Method to delete a product
+
+    Args:
+        id (int): product id
+        db (Session, optional): database session
+        user (AccountSchema, optional): jwt access token on the header
+
+    Raises:
+        HTTPException: Product not founded
+
+    Returns:
+        str: "Product Removed"
+    """
     if is_user(user):
         product = db.query(Product).filter(Product.id == id).first()
         if not product:

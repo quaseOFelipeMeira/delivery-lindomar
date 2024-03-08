@@ -1,6 +1,4 @@
 from fastapi import APIRouter, Depends, status, HTTPException
-from fastapi.security import OAuth2PasswordBearer
-from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
@@ -18,23 +16,41 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 @router.post("/login")
 def login(
-    # request:  OAuth2PasswordRequestForm = Depends(),
     request: LoginSchema,
     db: Session = Depends(get_db),
 ):
+    """Method to Login and retrieve jwt access token,
+
+    Args:
+        request (LoginSchema): json with account and address data
+        db (Session, optional): database session
+
+    Raises:
+        HTTPException: User not founded - HTTP 404
+        HTTPException: Invalid password - HTTP 401
+
+    Returns:
+        dict containing access token, users's id and role
+    """
+
+    # Getting the user by the email
     user = db.query(Account).filter(Account.email == request.email).first()
 
+    # Raising exception if user == null
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Email not found/invalid",
         )
 
+    # Verifying if is the correct password
     if not pwd_context.verify(request.password, user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid password",
         )
+
+    # Setting additional data to retrieve with the token
     access_token = generate_token(
         data={
             "id": user.id,

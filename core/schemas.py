@@ -51,7 +51,4 @@ class OrderResponseSchema(BaseModel):
     user: str
     transport: str
     status_msg: str
-
-
-class OrderResponseSchema2(OrderResponseSchema):
     products: List[ProductSchema]
